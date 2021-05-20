@@ -1,0 +1,33 @@
+{
+  "id": "fglair",
+  "name": {
+    "en": "FGLAir"
+  },
+  "class": "thermostat",
+  "capabilities": [
+    "target_temperature",
+    "measure_temperature",
+    "thermostat_mode",
+    "custom_extended_mode"
+  ],
+  "images": {
+    "large": "/drivers/fglair/assets/images/large.png",
+    "small": "/drivers/fglair/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      },
+      "options": {
+        "singular": false
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

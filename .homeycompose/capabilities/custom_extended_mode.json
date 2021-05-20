@@ -1,0 +1,33 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Extended Mode"
+  },
+  "desc": {
+    "en": "Modes not supported by Homey"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "insights": false,
+  "values": [
+    {
+      "id": "dry",
+      "title": {
+        "en": "Dry"
+      }
+    },
+    {
+      "id": "fan",
+      "title": {
+        "en": "Fan"
+      }
+    },
+    {
+      "id": "none",
+      "title": {
+        "en": "None"
+      }
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "com.fujitsu-general",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "name": {
+    "en": "Fujitsu FGLAir Client"
+  },
+  "api": {
+    "testCredentials": {
+      "method": "put",
+      "path": "/test_credentials"
+    }
+  },
+  "description": {
+    "en": "Adds support for Fujitsu Air Condition via FGLAir App"
+  },
+  "category": [
+    "climate"
+  ],
+  "tags": {
+    "en": [
+      "fujitsu",
+      "temperature control",
+      "heating",
+      "humidity",
+      "hvac"
+    ]
+  },
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Anders Thorsen",
+    "email": "anders@anders.to"
+  },
+  "drivers": [
+    {
+      "id": "fglair",
+      "name": {
+        "en": "FGLAir"
+      },
+      "class": "thermostat",
+      "capabilities": [
+        "target_temperature",
+        "measure_temperature",
+        "thermostat_mode",
+        "custom_extended_mode"
+      ],
+      "images": {
+        "large": "/drivers/fglair/assets/images/large.png",
+        "small": "/drivers/fglair/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ]
+    }
+  ],
+  "capabilities": {
+    "custom_extended_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Extended Mode"
+      },
+      "desc": {
+        "en": "Modes not supported by Homey"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "insights": false,
+      "values": [
+        {
+          "id": "dry",
+          "title": {
+            "en": "Dry"
+          }
+        },
+        {
+          "id": "fan",
+          "title": {
+            "en": "Fan"
+          }
+        },
+        {
+          "id": "none",
+          "title": {
+            "en": "None"
+          }
+        }
+      ]
+    }
+  }
+}

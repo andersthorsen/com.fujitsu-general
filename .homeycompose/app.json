@@ -1,0 +1,38 @@
+{
+  "id": "com.fujitsu-general",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "name": {
+    "en": "Fujitsu FGLAir Client"
+  },
+  "api": {
+    "testCredentials": {
+      "method": "put",
+      "path": "/test_credentials"
+    }
+  },
+  "description": {
+    "en": "Adds support for Fujitsu Air Condition via FGLAir App"
+  },
+  "category": [
+    "climate"
+  ],  
+  "tags": {
+    "en": [
+      "fujitsu",
+      "temperature control",
+      "heating",
+      "humidity",
+      "hvac"
+    ]
+  },  
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Anders Thorsen",
+    "email": "anders@anders.to"
+  }  
+}

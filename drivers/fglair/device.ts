@@ -1,6 +1,7 @@
 'use strict';
 
 import {Device as HomeyDevice } from 'homey';
+import Homey from 'homey/lib/Homey';
 import fglair from '../../lib/fglair';
 
 class FGLAirDevice extends HomeyDevice {
@@ -123,16 +124,20 @@ class FGLAirDevice extends HomeyDevice {
   }
 
   /**
-   * onSettings is called when the user updates the device's settings.
-   * @param {object} event the onSettings event data
-   * @param {object} event.oldSettings The old settings object
-   * @param {object} event.newSettings The new settings object
-   * @param {string[]} event.changedKeys An array of keys changed since the previous version
-   * @returns {Promise<string|void>} return a custom message that will be displayed
-   */
-  async onSettings(oldSettings: any, newSettings: any, changedKeys: any[]): Promise<string | void> {
-    this.log('FGLAirDevice settings where changed');
-  }
+     * This method is called when the user updates the device's settings.
+     * @param {object} event the onSettings event data
+     * @param {object} event.oldSettings The old settings object
+     * @param {object} event.newSettings The new settings object
+     * @param {string[]} event.changedKeys An array of keys changed since the previous version
+     * @returns {Promise<string|void>} return a custom message that will be displayed
+     */
+   async onSettings({ oldSettings, newSettings, changedKeys }: {
+    oldSettings: object;
+    newSettings: object;
+    changedKeys: string[];
+    }): Promise<string | void> {
+      this.log('FGLAirDevice settings where changed');
+    } 
 
   /**
    * onRenamed is called when the user updates the device's name.

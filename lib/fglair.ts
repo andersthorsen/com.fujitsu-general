@@ -1,4 +1,4 @@
-import ManagerSettings from 'homey/sdk/manager/settings';
+import { ManagerSettings } from 'homey/lib/Homey';
 import FglairApi from './fglairAPI';
 import { DeviceStatus } from './types';
 

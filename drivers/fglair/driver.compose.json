@@ -11,8 +11,8 @@
     "custom_extended_mode"
   ],
   "images": {
-    "large": "/drivers/fglair/assets/images/large.png",
-    "small": "/drivers/fglair/assets/images/small.png"
+    "large": "/drivers/fglair/assets/icon.svg",
+    "small": "/drivers/fglair/assets/icon.svg"
   },
   "pair": [
     {

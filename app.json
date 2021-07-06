@@ -1,7 +1,8 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.fujitsu-general",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "brandColor": "#d30909",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "name": {
@@ -50,8 +51,8 @@
         "custom_extended_mode"
       ],
       "images": {
-        "large": "/drivers/fglair/assets/images/large.png",
-        "small": "/drivers/fglair/assets/images/small.png"
+        "large": "/drivers/fglair/assets/icon.svg",
+        "small": "/drivers/fglair/assets/icon.svg"
       },
       "pair": [
         {

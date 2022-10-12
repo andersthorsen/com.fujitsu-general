@@ -1,15 +1,18 @@
-'use strict';
+import sourceMapSupport from 'source-map-support';
+sourceMapSupport.install();
+import Homey  from 'homey';
 
-import { App as HomeyApp }  from 'homey';
-
-class FGLAirApp extends HomeyApp {
-  api: any;
+class FGLAirApp extends Homey.App {
   /**
    * onInit is called when the app is initialized.
    */
-  async onInit() {
+  async onInit(): Promise<void> {
     this.log('FGLAirApp has been initialized');
+  }
+
+  async onUninit() {
+
   }
 }
 
-export default FGLAirApp;
+module.exports = FGLAirApp;

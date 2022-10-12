@@ -55,7 +55,7 @@ export interface PropertyInfo {
 
 export interface DeviceStatus {
     operationMode: 'auto' | 'cool' | 'heat' | 'off',
-    extendedModes: 'dry' | 'fan' | 'none',
+    extendedModes: 'minimum' | 'dry' | 'fan' | 'none',
     temperature: number | undefined,
     currentTemperature: number | undefined,
     fanSpeed: 'Quiet' | 'Low' | 'Medium' | 'High' | 'Auto' | undefined,

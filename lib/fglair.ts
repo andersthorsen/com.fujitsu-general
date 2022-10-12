@@ -15,7 +15,7 @@ class fglair {
         this._fglairApi.setCredentials(this.getUsername(), this.getPassword());
     }
 
-    public async setMode(dsn: string, mode: string, extendedMode: string): Promise<void> {
+    public async setMode(dsn: string, mode: 'auto' | 'heat' | 'cool' | 'off', extendedMode: 'none' | 'fan' | 'dry' | 'minimum'): Promise<void> {
 
         switch (mode) {
             case 'auto':
@@ -40,6 +40,10 @@ class fglair {
                         await this._fglairApi.setDeviceProp(dsn, 'operation_mode', 5);
                         break;
 
+                    case 'minimum':
+                        await this._fglairApi.setDeviceProp(dsn, 'operation_mode', 1);
+                        break;
+    
                     case 'dry':
                         await this._fglairApi.setDeviceProp(dsn, 'operation_mode', 4);
                         break;
@@ -72,7 +76,7 @@ class fglair {
         const indoorFanControl = deviceProps.find(p => p.property.name === 'indoor_fan_control');
 
         let opModeValue: 'auto' | 'cool' | 'heat' | 'off' = 'off';
-        let extendedModes: 'dry' | 'fan' | 'none' = 'none';
+        let extendedModes: 'minimum' | 'dry' | 'fan' | 'none' = 'none';
         let fanSpeed: 'Quiet' | 'Low' | 'Medium' | 'High' | 'Auto' | undefined = undefined;
 
         // op_status - 33554432
@@ -86,6 +90,11 @@ class fglair {
 
             case 0:
                 extendedModes = 'none';
+                opModeValue = 'off';
+                break;
+
+            case 1:
+                extendedModes = 'minimum';
                 opModeValue = 'off';
                 break;
 

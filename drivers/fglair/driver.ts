@@ -6,12 +6,16 @@ import ManagerSettings from 'homey/manager/settings';
 import fglair from '../../lib/fglair';
 
 class FGLAirDriver extends HomeyDriver {
-  homey: any;
+  //homey: any;
   /**
    * onInit is called when the driver is initialized.
    */
-  async onInit() {    
-    (this.homey as Homey).log('FGLAirDriver has been initialized');
+  async onInit(): Promise<void> {    
+    this.homey.log('FGLAirDriver has been initialized');
+  }
+
+  async onUninit(): Promise<void> {
+    
   }
 
   /**
@@ -20,9 +24,9 @@ class FGLAirDriver extends HomeyDriver {
    */
   async onPairListDevices(): Promise<any[]> {
 
-    (this.homey as Homey).log('onPairListDevices');
+    this.homey.log('onPairListDevices');
 
-    const f = new fglair(this.homey.settings as ManagerSettings);
+    const f = new fglair(this.homey.settings);
 
     f.failOnInvalidConfig();
 
@@ -32,4 +36,4 @@ class FGLAirDriver extends HomeyDriver {
   }
 }
 
-export default FGLAirDriver;
+module.exports = FGLAirDriver;

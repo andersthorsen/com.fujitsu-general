@@ -2,7 +2,7 @@
 
 import FglairApi from "./lib/fglairAPI";
 
-const testCredentials = async ( { homey, params, query, body }) => {
+const testCredentials = async ( { homey, params, query, body }: { homey: any, params: any, query: any, body: any }) => {
 
     //console.log(homey);
     //console.log(params);
@@ -26,7 +26,11 @@ const testCredentials = async ( { homey, params, query, body }) => {
     }
     catch (error) {
         console.log(error);
-        return error.message || 'Failed';
+        if ((error as any).message) {
+            return (error as any).message;
+        }
+
+        return "Failed";
     }
 };
 

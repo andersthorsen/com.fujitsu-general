@@ -1,35 +1,7 @@
 {
-    "compilerOptions": {
-        "target": "es2017",
-		"module": "commonjs",
-		"moduleResolution": "node",
-		"sourceMap": false,
-        "declaration": false,
-        "esModuleInterop": true,
-		"experimentalDecorators": false,
-		"emitDecoratorMetadata": false,
-		"allowJs": true,
-		"jsx": "react",		
-		"downlevelIteration": true,
-		"inlineSources": false,
-        "importHelpers": false,
-        "skipLibCheck": true,
-		"lib": [
-			"es6",
-		],
-		"noEmitHelpers": false,
-		"noFallthroughCasesInSwitch": true,
-		"noImplicitAny": false,
-		"noImplicitReturns": false,
-		"noImplicitThis": false,
-		"noUnusedLocals": false,
-		"noUnusedParameters": false,
-		"pretty": true,
-		"strict": true,
-		"strictBindCallApply": false,
-    },
-    "exclude": [
-        "node_modules",
-        "**/node_modules/*"
-    ]
+  "extends": "@tsconfig/node12/tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "outDir": ".homeybuild/"
+  }
 }

@@ -34,12 +34,21 @@ class FGLAirDevice extends HomeyDevice {
     this.readState();
 
   }
+
+  async onUninit(): Promise<void> {
+    
+  }
   
-  async onUpdateTargetTemperature(value, opts) {
+  async onUpdateTargetTemperature(value: any, opts: any) {
 
     this.clearReadSchedule();
 
     try {
+
+      if (value < 16) {
+        this._fglair?.setMode(this.getData().id, "off", "minimum")
+      }
+
       await this._fglair?.setTargetTemperature(this.getData().id, value);
     }
     catch(error) {
@@ -50,7 +59,7 @@ class FGLAirDevice extends HomeyDevice {
     }
   }
 
-  async onUpdateThermostatMode(value, opts) {
+  async onUpdateThermostatMode(value: any, opts: any) {
     
     this.clearReadSchedule();
 
@@ -65,7 +74,7 @@ class FGLAirDevice extends HomeyDevice {
     }
   }
 
-  async onOpdateCustomExtendedMode(value, opts) {
+  async onOpdateCustomExtendedMode(value: any, opts: any) {
     
     this.clearReadSchedule();
 
@@ -156,4 +165,4 @@ class FGLAirDevice extends HomeyDevice {
   }
 }
 
-export default FGLAirDevice;
+module.exports = FGLAirDevice;

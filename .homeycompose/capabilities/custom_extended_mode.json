@@ -12,6 +12,12 @@
   "insights": false,
   "values": [
     {
+      "id": "minimum",
+      "title": {
+        "en": "Minimum"
+      }
+    },
+    {
       "id": "dry",
       "title": {
         "en": "Dry"

@@ -15,40 +15,39 @@ class fglair {
         this._fglairApi.setCredentials(this.getUsername(), this.getPassword());
     }
 
-    public async setMode(dsn: string, mode: 'auto' | 'heat' | 'cool' | 'off', extendedMode: 'none' | 'fan' | 'dry' | 'minimum'): Promise<void> {
+    public async setMode(dsn: string, mode: 'auto' | 'heat' | 'cool' | 'off' | 'none' | 'fan' | 'dry' | 'minimum'): Promise<void> {
 
         switch (mode) {
             case 'auto':
                 await this._fglairApi.setDeviceProp(dsn, 'operation_mode', 2);
+                await this._fglairApi.setDeviceProp(dsn, 'min_heat', 0);
                 break;
 
             case 'heat':
                 await this._fglairApi.setDeviceProp(dsn, 'operation_mode', 6);
+                await this._fglairApi.setDeviceProp(dsn, 'min_heat', 0);
                 break;
 
             case 'cool':
                 await this._fglairApi.setDeviceProp(dsn, 'operation_mode', 3);
+                await this._fglairApi.setDeviceProp(dsn, 'min_heat', 0);
                 break;
 
             case 'off':
-                switch (extendedMode) {
-                    case 'none':
-                        await this._fglairApi.setDeviceProp(dsn, 'operation_mode', 0);
-                        break;
+                await this._fglairApi.setDeviceProp(dsn, 'operation_mode', 0);
+                break;
                     
-                    case 'fan':
-                        await this._fglairApi.setDeviceProp(dsn, 'operation_mode', 5);
-                        break;
+            case 'fan':
+                await this._fglairApi.setDeviceProp(dsn, 'operation_mode', 5);
+                break;
 
-                    case 'minimum':
-                        await this._fglairApi.setDeviceProp(dsn, 'operation_mode', 1);
-                        break;
-    
-                    case 'dry':
-                        await this._fglairApi.setDeviceProp(dsn, 'operation_mode', 4);
-                        break;
-                }
+            case 'minimum':
+                await this._fglairApi.setDeviceProp(dsn, 'operation_mode', 6);
+                await this._fglairApi.setDeviceProp(dsn, 'min_heat', 1);
+                break;
 
+            case 'dry':
+                await this._fglairApi.setDeviceProp(dsn, 'operation_mode', 4);                
                 break;
         }
     }
@@ -75,8 +74,7 @@ class fglair {
         const powerfulMode = deviceProps.find(p => p.property.name === 'powerful_mode');
         const indoorFanControl = deviceProps.find(p => p.property.name === 'indoor_fan_control');
 
-        let opModeValue: 'auto' | 'cool' | 'heat' | 'off' = 'off';
-        let extendedModes: 'minimum' | 'dry' | 'fan' | 'none' = 'none';
+        let opModeValue: 'auto' | 'cool' | 'heat' | 'off' | 'minimum' | 'dry' | 'fan' | 'none' = 'off';
         let fanSpeed: 'Quiet' | 'Low' | 'Medium' | 'High' | 'Auto' | undefined = undefined;
 
         // op_status - 33554432
@@ -86,41 +84,37 @@ class fglair {
         if (typeof displayTemp?.property.value === 'number')
             currentTemperature = (displayTemp.property.value / 100 - 32) * 5/9;
 
+        console.log('opMode: ' + opMode?.property.value);
+        console.log(deviceProps);
+
         switch(opMode?.property.value || -1) {
 
             case 0:
-                extendedModes = 'none';
-                opModeValue = 'off';
-                break;
-
-            case 1:
-                extendedModes = 'minimum';
                 opModeValue = 'off';
                 break;
 
             case 2:
-                extendedModes = 'none';
                 opModeValue = 'auto';
                 break;
 
             case 3:
-                extendedModes = 'none';
                 opModeValue = 'cool';
                 break;
 
             case 4:
-                extendedModes = 'dry';
-                opModeValue = 'off';
+                opModeValue = 'dry';
                 break;
 
             case 5:
-                extendedModes = 'fan';
-                opModeValue = 'off';
+                opModeValue = 'fan';
                 break;
 
             case 6:
-                extendedModes = 'none';
-                opModeValue = 'heat';
+                if (minHeat?.property.value == 1) {
+                    opModeValue = 'minimum';
+                } else {
+                    opModeValue = 'heat';
+                }
                 break;    
         }
 
@@ -153,7 +147,6 @@ class fglair {
 
         var status: DeviceStatus = {
            operationMode: opModeValue,
-           extendedModes: extendedModes,
            temperature: temperature,
            currentTemperature: currentTemperature,
            fanSpeed: fanSpeed,

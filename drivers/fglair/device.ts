@@ -1,11 +1,7 @@
-'use strict';
-
 import {Device as HomeyDevice } from 'homey';
-import Homey from 'homey/lib/Homey';
 import fglair from '../../lib/fglair';
 
 class FGLAirDevice extends HomeyDevice {
-  homey: any;
   private _fglair: fglair | undefined;
   private _readTimer: NodeJS.Timeout | undefined;
 
@@ -21,15 +17,13 @@ class FGLAirDevice extends HomeyDevice {
       return this.onOpdateCustomExtendedMode(value, opts);
     });
 
+    if (this.hasCapability('thermostat_mode')) {
+      this.removeCapability('thermostat_mode');
+    }
+
     this.registerCapabilityListener('target_temperature', (value, opts) => {
       return this.onUpdateTargetTemperature(value, opts);
     });
-
-    if (this.hasCapability('thermostat_mode')) {
-      this.registerCapabilityListener('thermostat_mode', (value, opts) => {
-        return this.onUpdateThermostatMode(value, opts);
-      });
-    }    
 
     this.readState();
 
@@ -46,7 +40,7 @@ class FGLAirDevice extends HomeyDevice {
     try {
 
       if (value < 16) {
-        this._fglair?.setMode(this.getData().id, "off", "minimum")
+        this._fglair?.setMode(this.getData().id, "minimum")
       }
 
       await this._fglair?.setTargetTemperature(this.getData().id, value);
@@ -58,28 +52,13 @@ class FGLAirDevice extends HomeyDevice {
       this.scheduleRead(1);
     }
   }
-
-  async onUpdateThermostatMode(value: any, opts: any) {
-    
-    this.clearReadSchedule();
-
-    try {
-      await this._fglair?.setMode(this.getData().id, value, 'none');  
-    }
-    catch (error) {
-      this.log(`error while changing mode to ${value}`);
-    }
-    finally {
-      this.scheduleRead(1);
-    }
-  }
-
+  
   async onOpdateCustomExtendedMode(value: any, opts: any) {
     
     this.clearReadSchedule();
 
     try {
-      await this._fglair?.setMode(this.getData().id, 'off', value);    
+      await this._fglair?.setMode(this.getData().id, value);    
     }
     catch (error) {
       this.log(`error while changing extended mode to ${value}`);
@@ -108,8 +87,7 @@ class FGLAirDevice extends HomeyDevice {
       const status = await this._fglair?.getDeviceStatus(this.getData().id);
 
       await this.setCapabilityValueEx('target_temperature', status?.temperature);
-      await this.setCapabilityValueEx('thermostat_mode', status?.operationMode);
-      await this.setCapabilityValueEx('custom_extended_mode', status?.extendedModes);
+      await this.setCapabilityValueEx('custom_extended_mode', status?.operationMode);
       await this.setCapabilityValueEx('measure_temperature', status?.currentTemperature);
     }
     finally {
@@ -120,8 +98,8 @@ class FGLAirDevice extends HomeyDevice {
   async setCapabilityValueEx(capabilityId: string, value: any) : Promise<void> {
     try {
       await this.setCapabilityValue(capabilityId, value);
-    } catch (error) {
-      this.log(`error while setting ${capabilityId} to ${value} - ${error.message}`);
+    } catch (error) {      
+      this.log(`error while setting ${capabilityId} to ${value} - ${(error as any)?.message}`);
     }
   }
 

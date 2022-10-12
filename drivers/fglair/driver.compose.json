@@ -7,7 +7,6 @@
   "capabilities": [
     "target_temperature",
     "measure_temperature",
-    "thermostat_mode",
     "custom_extended_mode"
   ],
   "images": {

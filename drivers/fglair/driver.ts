@@ -1,8 +1,4 @@
-'use strict';
-
 import { Driver as HomeyDriver } from 'homey';
-import Homey from 'homey/lib/Homey';
-import ManagerSettings from 'homey/manager/settings';
 import fglair from '../../lib/fglair';
 
 class FGLAirDriver extends HomeyDriver {

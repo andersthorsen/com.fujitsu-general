@@ -167,7 +167,7 @@ class FglairApi {
       const url = `https://${this.options_auth.hostname}${port}${this.options_auth.path}`;
 
       const response = await fetch(url, { method: 'POST', headers: this.options_auth.headers, body: JSON.stringify(body) } );
-      const data = await response.json();
+      const data = (await response.json()) as Record<string, string>;
 
       if (response.status >= 200 && response.status <= 299) {
         this.access_token = data['access_token'];

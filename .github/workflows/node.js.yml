@@ -26,7 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-      - run: npm -g install homey
-      - run: npm ci
-      - run: homey app build
+    - run: npm -g install homey
+    - run: npm ci
+    - run: homey app build
 

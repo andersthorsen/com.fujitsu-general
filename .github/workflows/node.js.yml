@@ -26,9 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Run install
-      uses: borales/actions-yarn@v4
-      with:
-        cmd: install # will run `yarn install` command
-    - run: homey app build
+      - run: npm -g install homey
+      - run: npm ci
+      - run: homey app build
 
